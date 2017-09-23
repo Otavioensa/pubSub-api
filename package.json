@@ -4,6 +4,7 @@
   "description": "API made for being presented as a POC",
   "main": "index.js",
   "scripts": {
+    "start": "node app",
     "test": "npm test"
   },
   "repository": {
@@ -17,12 +18,14 @@
   },
   "homepage": "https://github.com/Otavioensa/pubSub-api#readme",
   "dependencies": {
+    "amqplib": "^0.5.1",
     "bluebird": "^3.5.0",
     "hapi": "^16.6.0",
     "hapi-auth-jwt": "^4.0.0",
     "hapi-swaggered": "^2.10.0",
     "hapi-swaggered-ui": "^2.6.0",
     "inert": "^4.2.1",
+    "joi": "^11.0.3",
     "mongoose": "^4.11.12",
     "vision": "^4.1.1"
   }

@@ -3,6 +3,7 @@
 const Hapi = require('hapi');
 const Config = require('./config');
 const Plugins = require('./libs/plugins');
+const Routes = require('./endpoints/routes');
 
 const server = new Hapi.Server();
 
@@ -11,24 +12,15 @@ server.connection({
   port: Config.server.port
 });
 
-server.register(Plugins, (err) => {
-
-  if (err) {
-
-    console.log(err);
-  }
-});
+server.register(Plugins);
 
 const start = () => {
-
   return server.start(() => console.log('Server running at: ' + server.info.uri));
 };
 
-const stop = (reason) => {
+Routes.getRoutes().forEach((route) => server.route(route));
 
-  console.log('server stopping');
-  return server.stop();
-};
+const stop = (reason) =>  server.stop();
 
 const get = () => server;
 

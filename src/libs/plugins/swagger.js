@@ -9,6 +9,10 @@ module.exports = {
       {
         name: 'api',
         description: 'API Endpoints'
+      },
+      {
+        name: 'endpoints',
+        description: 'API Endpoints'
       }
     ],
     tagging: {
