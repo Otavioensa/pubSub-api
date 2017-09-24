@@ -21,7 +21,15 @@ const publish = (request, reply) => {
     .catch((error) => reply(error));
 };
 
+const subject = (request, reply) => {
+
+  return Service.subject()
+    .then((result) => reply(result))
+    .catch((error) => reply(error));
+};
+
 module.exports = {
   subscribe: subscribe,
-  publish: publish
+  publish: publish,
+  subject: subject
 };

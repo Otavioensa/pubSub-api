@@ -26,4 +26,15 @@ SubscribeSchema.statics.updateSubscribes = function (content) {
   return entity.save();
 };
 
+SubscribeSchema.statics.getSubjects = function () {
+
+  return this.aggregate([
+    {
+      $group: {
+        _id: "$subject"
+      }
+    }
+  ]);
+};
+
 module.exports = Mongoose.model('Subscribe', SubscribeSchema);

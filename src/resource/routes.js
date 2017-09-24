@@ -37,4 +37,15 @@ const publish = {
   }
 };
 
-module.exports.getRoutes = ()=> [subscribe, publish];
+const subjects = {
+  method: 'GET',
+  path: '/subject',
+  handler: (request, reply) => Controller.subject(request, reply),
+  config: {
+    tags: ['api', 'endpoints'],
+    description: 'Get existent subjects',
+    notes: 'Get existent subjects'
+  }
+};
+
+module.exports.getRoutes = ()=> [subscribe, publish, subjects];

@@ -44,7 +44,13 @@ const publish = (subject, content) =>  {
   return publishMessageToConsumer(exchange, exchangeType, subject, content);
 };
 
+const subject = () => {
+
+  return Repository.getSubjects();
+};
+
 module.exports = {
   subscribe: subscribe,
-  publish: publish
+  publish: publish,
+  subject: subject
 };
