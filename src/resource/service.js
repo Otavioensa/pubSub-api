@@ -46,7 +46,8 @@ const publish = (subject, content) =>  {
 
 const subject = () => {
 
-  return Repository.getSubjects();
+  return Repository.getSubjects()
+    .then((result) =>  result.map((res) => res._id));
 };
 
 module.exports = {
