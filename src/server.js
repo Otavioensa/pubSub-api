@@ -3,7 +3,7 @@
 const Hapi = require('hapi');
 const Config = require('./config');
 const Plugins = require('./libs/plugins');
-const Routes = require('./endpoints/routes');
+const Routes = require('./resource/routes');
 
 const server = new Hapi.Server();
 
