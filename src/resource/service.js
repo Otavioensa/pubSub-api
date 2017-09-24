@@ -5,16 +5,15 @@ const Promise = require('bluebird');
 const Config = require('../config');
 const Repository = require('./repository').SubscribeModel;
 const address = Config.rabbit.address;
-const exchange = Config.rabbit.exchange;
 const assertExchangeOptions = { durable: false };
 
-const publishMessageToConsumer = (subject, content) => {
+const publishMessageToConsumer = (exchange, exchangeType, subject, content) => {
 
   return Amqp.connect(address)
     .then((connection) => connection.createChannel())
     .then((channel) => {
 
-      return channel.assertExchange(exchange, 'fanout', assertExchangeOptions)
+      return channel.assertExchange(exchange, exchangeType, assertExchangeOptions)
         .then(() => {
 
           channel.publish(exchange, subject, new Buffer(JSON.stringify(content)))
@@ -26,16 +25,24 @@ const publishMessageToConsumer = (subject, content) => {
 
 const subscribe = (content) => {
 
+  const exchange = Config.rabbit.exchange;
+  const exchangeType = 'fanout';
   const newSubscribers = Config.rabbit.newSubscribersQueue;
 
   return Promise.all([
-    publishMessageToConsumer(newSubscribers, content),
+    publishMessageToConsumer(exchange, exchangeType, newSubscribers, content),
     Repository.updateSubscribes(content)
   ])
 
 };
 
-const publish = (subject, content) =>  publishMessageToConsumer(subject, content);
+const publish = (subject, content) =>  {
+
+  const exchange = Config.rabbit.consumerExchange;
+  const exchangeType = 'topic';
+
+  return publishMessageToConsumer(exchange, exchangeType, subject, content);
+};
 
 module.exports = {
   subscribe: subscribe,
