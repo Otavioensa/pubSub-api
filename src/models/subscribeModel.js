@@ -13,7 +13,7 @@ const SubscribeSchema = new Schema({
   versionKey: false
 });
 
-SubscribeSchema.statics.updateSubscribes = function (content) {
+SubscribeSchema.statics.createSubscriber = function (content) {
 
   const payload = {
     _id: Uiid.v1(),

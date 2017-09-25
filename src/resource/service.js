@@ -31,7 +31,7 @@ const subscribe = (content) => {
 
   return Promise.all([
     publishMessageToConsumer(exchange, exchangeType, newSubscribers, content),
-    Repository.updateSubscribes(content)
+    Repository.createSubscriber(content)
   ])
 
 };
