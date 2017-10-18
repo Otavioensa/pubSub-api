@@ -39,16 +39,12 @@ const subscribe = (content) => {
 const publish = (subject, content) =>  {
 
   const exchange = Config.rabbit.consumerExchange;
-  const exchangeType = 'topic';
+  const exchangeType = 'direct';
 
   return publishMessageToConsumer(exchange, exchangeType, subject, content);
 };
 
-const subject = () => {
-
-  return Repository.getSubjects()
-    .then((result) =>  result.map((res) => res._id));
-};
+const subject = () => Repository.getSubjects().then((result) =>  result.map((res) => res._id));
 
 module.exports = {
   subscribe: subscribe,

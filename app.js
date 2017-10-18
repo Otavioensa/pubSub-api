@@ -15,15 +15,13 @@ const finishGracefully = () => {
 
 process.on('SIGINT', finishGracefully);
 
-return Promise.all([
-  Database.connect(),
-  Server.start()
-])
-.then(() => console.log('Server is on'))
-.catch((err) => {
+return Database.connect()
+  .then(() => Server.start())
+  .then(() => console.log('Server is on'))
+  .catch((err) => {
 
-  console.error(`${COLOR_RED}Fatal exception on startup!`);
-  console.error(`${COLOR_RED}${err}`);
+    console.error(`${COLOR_RED}Fatal exception on startup!`);
+    console.error(`${COLOR_RED}${err}`);
 
-  process.exit(-1);
-});
+    process.exit(-1);
+  });
